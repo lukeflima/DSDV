@@ -95,12 +95,12 @@ public:
 	int ratio;
 	std::vector<Entry> routingTable;
 	Pos pos;
-	Node(int x, int y,int _ratio = 3): 
+	Node(int x, int y,int _ratio = 5): 
 		ID(currentID()),
 		pos{x,y}, 
 		ratio(_ratio)
 	{};	
-	void sendMessage(int Dst, Msg msg, std::vector<Node> &nodes){
+	bool sendMessage(int Dst, Msg msg, std::vector<Node> &nodes){
 		
 		auto dst = std::find_if(routingTable.begin(), routingTable.end(), [&](auto rt){ return rt.destination == Dst; });
 		Package p{ID,(*dst).nextHop, msg};
@@ -112,13 +112,14 @@ public:
 						std::cout  << n.ID << " Recived msg: " << p.msg.msg << "\n";
 					} else{
 						n.sendMessage(Dst, p.msg, nodes);
-						break;
+						return true;
 					}
 				}
 			}
 		}else{
 			std::cout << "Node "  << (*dst).nextHop << " is inactive.\n"; 
 			recalculate(nodes);
+			return false;
 		}
 	}
 	void recalculate(std::vector<Node> &nodes){
@@ -127,7 +128,7 @@ public:
 		for(auto &n: nodes){ n.printNeighbours(); }	
 	}
 
-	void sendMessage(int Dst, std::string msg, std::vector<Node> &nodes){
+	bool sendMessage(int Dst, std::string msg, std::vector<Node> &nodes){
 		std::cout << ID << " Sending msg \"" << msg << "\" to " << Dst << "\n";
 		Msg m;
 		if (auto a = std::find_if(routingTable.begin(), routingTable.end(), [&](const Entry& e){ return (e.destination == Dst); }) != routingTable.end()) {
@@ -146,13 +147,14 @@ public:
 						std::cout  << n.ID << " Recived msg: " << p.msg.msg << "\n \n";
 					} else{
 						n.sendMessage(Dst, p.msg, nodes);
-						break;
+						return true;
 					}
 				}
 			}
 		}else{
 			std::cout << "Node "  << (*dst).nextHop << " is inactive.\n"; 
 			recalculate(nodes);
+			return true;
 		}
 		/*std::vector<int> prox;
 		for(n: nodes){
@@ -233,9 +235,9 @@ public:
 	void sendRegularUpdate(std::vector<Node> &nodes){
 		for (int i = 0; i < nodes.size(); ++i){
 			for (int j = 0; j < nodes[i].routingTable.size();++j){
-				if(nodes[i].routingTable[j].numHops == 1){
+				if(nodes[i].routingTable[j].numHops == 1 ){
 					for (int k = 0; k < nodes[i].routingTable.size() ; ++k){
-						if(nodes[i].routingTable[j].destination == nodes[k].ID){
+						if(nodes[i].routingTable[j].destination == nodes[k].ID ){
 							//std::cout<< "mandando table i: " << i << "pra k: " << k << "\n";
 							sendTable(&nodes[i],&nodes[k]);
 						}
