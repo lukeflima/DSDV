@@ -62,8 +62,14 @@ typedef struct message
 
 typedef struct package
 {
+	int src_ID;
 	int dst_ID;
 	Msg msg;
+
+	void print(){
+		std::cout << "Source: " << src_ID <<  "  Destination: " << dst_ID << "\nMessage: ";
+		msg.print();
+	}
 } Package;
 
 //*******************************************************************************************
@@ -94,8 +100,35 @@ public:
 		pos{x,y}, 
 		ratio(_ratio)
 	{};	
+	void sendMessage(int Dst, Msg msg, std::vector<Node> &nodes){
+		
+		auto dst = std::find_if(routingTable.begin(), routingTable.end(), [&](auto rt){ return rt.destination == Dst; });
+		Package p{ID,(*dst).nextHop, msg};
+		p.print();
+		if(std::find_if(nodes.begin(), nodes.end(), [&](auto n){ return n.ID == (*dst).nextHop; }) != nodes.end()){
+			for(auto &n: nodes){
+				if(n.ID == p.dst_ID){
+					if(p.msg.dst_ID == n.ID){
+						std::cout  << n.ID << " Recived msg: " << p.msg.msg << "\n";
+					}else{
+						n.sendMessage(Dst, p.msg, nodes);
+						break;
+					}
+				}
+			}
+		}else{
+			std::cout << "Node "  << (*dst).nextHop << " is inactive.\n"; 
+			recalculate(nodes);
+		}
+	}
+	void recalculate(std::vector<Node> &nodes){
+		for(auto &n: nodes){ n.discoverNeighbours(nodes); }	
+		for(auto &n: nodes){ n.sendRegularUpdate(nodes); }
+		for(auto &n: nodes){ n.printNeighbours(); }	
+	}
 
-	void sendMessage(int Dst, std::string msg){
+	void sendMessage(int Dst, std::string msg, std::vector<Node> &nodes){
+		std::cout << ID << " Sending msg \"" << msg << "\" to " << Dst << "\n";
 		Msg m;
 		if (auto a = std::find_if(routingTable.begin(), routingTable.end(), [&](const Entry& e){ return (e.destination == Dst); }) != routingTable.end()) {
 			m = Msg{ID, Dst, msg};
@@ -103,6 +136,24 @@ public:
 			m = Msg{ID, Dst, "Route Request"};
 		}
 		m.print();
+		auto dst = std::find_if(routingTable.begin(), routingTable.end(), [&](auto rt){ return rt.destination == Dst; });
+		if(std::find_if(nodes.begin(), nodes.end(), [&](auto n){ return n.ID == (*dst).nextHop; }) != nodes.end()){
+			Package p{ID,(*dst).nextHop, m};
+			p.print();
+			for(auto &n: nodes){
+				if(n.ID == p.dst_ID){
+					if(p.msg.dst_ID == n.ID){
+						std::cout  << n.ID << " Recived msg: " << p.msg.msg << "\n \n";
+					}else{
+						n.sendMessage(Dst, p.msg, nodes);
+						break;
+					}
+				}
+			}
+		}else{
+			std::cout << "Node "  << (*dst).nextHop << " is inactive.\n"; 
+			recalculate(nodes);
+		}
 		/*std::vector<int> prox;
 		for(n: nodes){
 			//std::cout << "Loops nodes" << "\n";
@@ -138,6 +189,7 @@ public:
 	}
 
 	void discoverNeighbours(std::vector<Node> &nodes){
+		routingTable.clear();
 		routingTable.push_back({ID,ID,0,0,TIME});
 		for(auto n: nodes){
 			//std::cout << "Loops nodes" << "\n";

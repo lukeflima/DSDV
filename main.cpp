@@ -16,7 +16,9 @@ int main()
 	int inicial_index = 0;
 	int index = inicial_index;
 	std::vector<int> next_index;
-	//nodes[index].sendMessage(2, "Hello :D", nodes);
+	nodes[index].sendMessage(5, "Hello :D", nodes);
+	nodes.erase(nodes.begin() + 1);
+	nodes[2].sendMessage(5, "Vai dar certo", nodes);
 	
 	return 0;
 }
