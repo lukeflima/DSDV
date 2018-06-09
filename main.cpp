@@ -19,6 +19,7 @@ int main()
 	nodes[index].sendMessage(5, "Hello :D", nodes);
 	nodes.erase(nodes.begin() + 1);
 	nodes[2].sendMessage(5, "Vai dar certo", nodes);
+	nodes[2].sendMessage(5, "Vai dar certo", nodes);
 	
 	return 0;
 }

@@ -110,7 +110,7 @@ public:
 				if(n.ID == p.dst_ID){
 					if(p.msg.dst_ID == n.ID){
 						std::cout  << n.ID << " Recived msg: " << p.msg.msg << "\n";
-					}else{
+					} else{
 						n.sendMessage(Dst, p.msg, nodes);
 						break;
 					}
@@ -132,7 +132,7 @@ public:
 		Msg m;
 		if (auto a = std::find_if(routingTable.begin(), routingTable.end(), [&](const Entry& e){ return (e.destination == Dst); }) != routingTable.end()) {
 			m = Msg{ID, Dst, msg};
-		}else{
+		} else{
 			m = Msg{ID, Dst, "Route Request"};
 		}
 		m.print();
@@ -144,7 +144,7 @@ public:
 				if(n.ID == p.dst_ID){
 					if(p.msg.dst_ID == n.ID){
 						std::cout  << n.ID << " Recived msg: " << p.msg.msg << "\n \n";
-					}else{
+					} else{
 						n.sendMessage(Dst, p.msg, nodes);
 						break;
 					}
@@ -205,53 +205,37 @@ public:
 		int isin = 0;
 		int dest = 0;
 
-		for (int i = 0; i < n1->routingTable.size(); ++i)
-		{
-			for (int j = 0; j <= n2->routingTable.size(); ++j)
-			{
-				
-				if (n1->routingTable[i].destination == n2->ID)
-				{
+		for (int i = 0; i < n1->routingTable.size(); ++i){
+			for (int j = 0; j <= n2->routingTable.size(); ++j){
+				if (n1->routingTable[i].destination == n2->ID){
 					isin = 1;
-				}
-				if (n1->routingTable[i].destination != n2->ID)
-				{
-					if(n1->routingTable[i].destination == n2->routingTable[j].destination)
-					{
+				} 
+				if (n1->routingTable[i].destination != n2->ID){
+					if(n1->routingTable[i].destination == n2->routingTable[j].destination){
 						isin = 1; 
-						
-						if((n1->routingTable[i].numHops > 0) && (n1->routingTable[i].numHops + 1 < n2->routingTable[j].numHops) && (isin ==1))
-						{
+						if((n1->routingTable[i].numHops > 0) && (n1->routingTable[i].numHops + 1 < n2->routingTable[j].numHops) && (isin ==1)){
 							n2->routingTable[j].numHops = n1->routingTable[i].numHops + 1;
 							n2->routingTable[j].nextHop = n1->ID;
-						}
-						  
+						}  
 					}
 				}
-				
-				
 			}
-			if(isin == 0 && (n1->routingTable[i].numHops > 0))
-				{
+			if(isin == 0 && (n1->routingTable[i].numHops > 0)){
 				//	std::cout<< "Hi Size " <<n2->routingTable.size()<<"\n";
 				//	std::cout<< "Hi ID " <<n2->ID<<"\n";
-					n2->routingTable.push_back({n1->routingTable[i].destination,n1->ID,(n1->routingTable[i].numHops + 1),0,TIME});
-				}
+				n2->routingTable.push_back({n1->routingTable[i].destination,n1->ID,(n1->routingTable[i].numHops + 1),0,TIME});
+			}
 			isin =0;
 		}
 
 	}
+
 	void sendRegularUpdate(std::vector<Node> &nodes){
-		for (int i = 0; i < nodes.size(); ++i)
-		{
-			for (int j = 0; j < nodes[i].routingTable.size();++j)
-			{
-				if(nodes[i].routingTable[j].numHops == 1)
-				{
-					for (int k = 0; k < nodes[i].routingTable.size() ; ++k)
-					{
-						if(nodes[i].routingTable[j].destination == nodes[k].ID)
-						{
+		for (int i = 0; i < nodes.size(); ++i){
+			for (int j = 0; j < nodes[i].routingTable.size();++j){
+				if(nodes[i].routingTable[j].numHops == 1){
+					for (int k = 0; k < nodes[i].routingTable.size() ; ++k){
+						if(nodes[i].routingTable[j].destination == nodes[k].ID){
 							//std::cout<< "mandando table i: " << i << "pra k: " << k << "\n";
 							sendTable(&nodes[i],&nodes[k]);
 						}
