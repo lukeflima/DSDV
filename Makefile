@@ -1,25 +1,18 @@
 TARGET_EXEC ?= a.out
 
-BUILD_DIR ?= ./
-SRC_DIRS ?= ./
-TEST_DIRS ?= ./
-
-SRCS := $(shell find $(SRC_DIRS) -name *.cpp)
-OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
-DEPS := $(OBJS:.o=.d)
-
-
-INC_DIRS := $(shell find $(SRC_DIRS) -type d)
-INC_FLAGS := $(addprefix -I,$(INC_DIRS))
+SOURCES = $(wildcard *.cpp)
+OBJECTS = $(SOURCES:.cpp=.o)
 
 CPPFLAGS ?= $(INC_FLAGS) -std=c++11
 
-$(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
-	$(CXX) $(OBJS) -o $@ $(LDFLAGS)	
+all: $(EXECUTABLE)
 
-$(BUILD_DIR)/%.cpp.o: %.cpp
-	$(MKDIR_P) $(dir $@)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -g -c $< -o $@
+$(EXECUTABLE): $(OBJECTS)
+	$(CXX) $^ -o $@ $(LDLIBS)
+
+.cpp.o:
+
+-include $(OBJECTS:.o=.d)
 
 
 .PHONY: clean #tests	
