@@ -37,4 +37,4 @@ clear: clean
 
 execute: out
 
-	./out <entradas.txt> saidas.txt
+	./out <input.txt> log.txt
