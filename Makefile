@@ -4,16 +4,6 @@ CXX = g++
 
 CXXFLAGS = -std=c++11  
 
-CPPFLAGS += -MMD \
-			-I/usr/include
-
-LDFLAGS = -L/usr/lib/gcc/x86_64-linux-gnu/4.8 \
-		  -L/usr/lib/x86_64-linux-gnu \
-		  -L/usr/lib \
-	      -L/usr/lib
-
-LDLIBS = -lpthread 
-
 SOURCES = $(wildcard *.cpp)
 
 OBJECTS = $(SOURCES:.cpp=.o)
@@ -37,4 +27,4 @@ clear: clean
 
 execute: out
 
-	./out <input.txt> log.txt
+	./out <entradas.txt> saidas.txt

@@ -1,0 +1,126 @@
+Node 1		x: 2	y: -8
+
+Node 2		x: 1	y: -2
+
+Node 3		x: 1	y: 0
+
+Node 4		x: 2	y: -2
+
+Node 5		x: 1	y: -10
+
+Node 6		x: 2	y: -8
+
+Node 7		x: 3	y: -4
+
+Node 8		x: 2	y: -8
+
+Table of 1
+Destination  	  NextHop  	  NumHops   
+  	1  	  1  		  0
+  	4  	  4  		  1
+  	5  	  5  		  1
+  	6  	  6  		  1
+  	7  	  7  		  1
+  	8  	  8  		  1
+  	3  	  2  		  2
+  	2  	  4  		  2
+
+Table of 2
+Destination  	  NextHop  	  NumHops   
+  	2  	  2  		  0
+  	1  	  1  		  1
+  	3  	  3  		  1
+  	4  	  4  		  1
+  	5  	  5  		  1
+  	6  	  6  		  1
+  	7  	  7  		  1
+  	8  	  8  		  1
+
+Table of 3
+Destination  	  NextHop  	  NumHops   
+  	3  	  3  		  0
+  	2  	  2  		  1
+  	4  	  4  		  1
+  	7  	  7  		  1
+  	1  	  2  		  2
+  	5  	  2  		  2
+  	6  	  2  		  2
+  	8  	  2  		  2
+
+Table of 4
+Destination  	  NextHop  	  NumHops   
+  	4  	  4  		  0
+  	1  	  1  		  1
+  	2  	  2  		  1
+  	3  	  3  		  1
+  	5  	  5  		  1
+  	6  	  6  		  1
+  	7  	  7  		  1
+  	8  	  8  		  1
+
+Table of 5
+Destination  	  NextHop  	  NumHops   
+  	5  	  5  		  0
+  	1  	  1  		  1
+  	6  	  6  		  1
+  	8  	  8  		  1
+  	4  	  1  		  2
+  	7  	  1  		  2
+  	3  	  2  		  2
+  	2  	  4  		  2
+
+Table of 6
+Destination  	  NextHop  	  NumHops   
+  	6  	  6  		  0
+  	1  	  1  		  1
+  	5  	  5  		  1
+  	8  	  8  		  1
+  	4  	  1  		  2
+  	7  	  1  		  2
+  	3  	  2  		  2
+  	2  	  4  		  2
+
+Table of 7
+Destination  	  NextHop  	  NumHops   
+  	7  	  7  		  0
+  	1  	  1  		  1
+  	2  	  2  		  1
+  	3  	  3  		  1
+  	4  	  4  		  1
+  	5  	  5  		  1
+  	6  	  6  		  1
+  	8  	  8  		  1
+
+Table of 8
+Destination  	  NextHop  	  NumHops   
+  	8  	  8  		  0
+  	1  	  1  		  1
+  	4  	  4  		  1
+  	5  	  5  		  1
+  	6  	  6  		  1
+  	7  	  7  		  1
+  	3  	  2  		  2
+  	2  	  4  		  2
+
+1 Sending msg " Hello :D" to 5
+06/10/18-22:26:26 - Source: 1  Destination: 5  Mesasge:  Hello :D  Seq Number: 1
+Source: 1  Destination: 5
+Message: 06/10/18-22:26:26 - Source: 1  Destination: 5  Mesasge:  Hello :D  Seq Number: 1
+5 Recived msg:  Hello :D
+ 
+
+1 Sending msg " Tudo okay" to 2
+06/10/18-22:26:26 - Source: 1  Destination: 2  Mesasge:  Tudo okay  Seq Number: 2
+Source: 1  Destination: 4
+Message: 06/10/18-22:26:26 - Source: 1  Destination: 2  Mesasge:  Tudo okay  Seq Number: 2
+Source: 4  Destination: 2
+Message: 06/10/18-22:26:26 - Source: 1  Destination: 2  Mesasge:  Tudo okay  Seq Number: 2
+2 Recived msg:  Tudo okay
+
+2 Sending msg " Vai dar certo" to 5
+06/10/18-22:26:26 - Source: 2  Destination: 5  Mesasge:  Vai dar certo  Seq Number: 3
+Source: 2  Destination: 5
+Message: 06/10/18-22:26:26 - Source: 2  Destination: 5  Mesasge:  Vai dar certo  Seq Number: 3
+5 Recived msg:  Vai dar certo
+ 
+
