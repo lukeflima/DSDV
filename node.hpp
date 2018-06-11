@@ -14,7 +14,6 @@
 
 #define TIME std::chrono::system_clock::to_time_t(std::chrono::system_clock::now())
 
-//std::mutex buss_tone_mutex;
 
 typedef struct entry
 {
@@ -156,27 +155,7 @@ public:
 			recalculate(nodes);
 			return true;
 		}
-		/*std::vector<int> prox;
-		for(n: nodes){
-			//std::cout << "Loops nodes" << "\n";
-			if(n.ID != ID){
-				if(isInRange(n)){
-					if( !m.msg.substr(0,13).compare( {"Route Request",13}) ){
-						std::cout << "Is a Route Request ID: " << n.ID << '\n';
-						auto aux = m.msg;
-						aux += " " + n.ID;
-						prox.push_back(n.ID);
-					}
-				}
-			}
-		}
-		for(p : prox){
-			std::cout << p << "\n";
-			auto aux = m.msg;
-			aux += " " + nodes[p].ID;
-			nodes[p].sendMessage(Dst, aux, nodes);
-		}*/
-
+		
 	}
 	bool isInRange(Node& n){
 		return (n.pos.x - pos.x)* (n.pos.x - pos.x) + (n.pos.y - pos.y)* (n.pos.y - pos.y) <= ratio*ratio;
@@ -223,8 +202,6 @@ public:
 				}
 			}
 			if(isin == 0 && (n1->routingTable[i].numHops > 0)){
-				//	std::cout<< "Hi Size " <<n2->routingTable.size()<<"\n";
-				//	std::cout<< "Hi ID " <<n2->ID<<"\n";
 				n2->routingTable.push_back({n1->routingTable[i].destination,n1->ID,(n1->routingTable[i].numHops + 1),0,TIME});
 			}
 			isin =0;
@@ -238,7 +215,6 @@ public:
 				if(nodes[i].routingTable[j].numHops == 1 ){
 					for (int k = 0; k < nodes[i].routingTable.size() ; ++k){
 						if(nodes[i].routingTable[j].destination == nodes[k].ID ){
-							//std::cout<< "mandando table i: " << i << "pra k: " << k << "\n";
 							sendTable(&nodes[i],&nodes[k]);
 						}
 					}
@@ -246,39 +222,6 @@ public:
 			}
 		}
 	}
-/*	void BellmanFord(Entry routingTable, Entry routingTable2 vertices, list edges, vertex source)
-   ::distance[],predecessor[]
-   
-   // This implementation takes in a graph, represented as
-   // lists of vertices and edges, and fills two arrays
-   // (distance and predecessor) with shortest-path
-   // (less cost/distance/metric) information
-   
-   // Step 1: initialize graph
-   for(int i= 0; i < &nodes->size(); i++)
-   {
-	
-   }
-   for each vertex v in vertices:
-       distance[v] := inf             // At the beginning , all vertices have a weight of infinity
-       predecessor[v] := null         // And a null predecessor
-   
-   distance[source] := 0              // The weight is zero at the source
-   
-   // Step 2: relax edges repeatedly
-   for i from 1 to size(vertices)-1:
-       for each edge (u, v) with weight w in edges:
-           if distance[u] + w < distance[v]:
-               distance[v] := distance[u] + w
-               predecessor[v] := u
-   
-   // Step 3: check for negative-weight cycles
-   for each edge (u, v) with weight w in edges:
-       if distance[u] + w < distance[v]:
-           error "Graph contains a negative-weight cycle"
-   
-  
-   */
 };
 
 #endif //__NODE__
