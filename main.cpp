@@ -15,10 +15,11 @@ int main()
 		nodes.emplace_back(aux_x, aux_y, aux_r);
 	}
 
-	for(auto &n: nodes){ n.pos.print(); }	
+	for(auto &n: nodes){ std::cout << "Node " << n.ID << "\t\t"; n.pos.print(); std::cout << "\n"; }
+
 	for(auto &n: nodes){ n.discoverNeighbours(nodes); }	
 	for(auto &n: nodes){ n.sendRegularUpdate(nodes); }
-	for(auto &n: nodes){ n.printNeighbours(); }	
+	for(auto &n: nodes){ n.printNeighbours(); std::cout << "\n"; }	
 	
 	int aux_index, aux_dst;	
 	std::string aux_msg;

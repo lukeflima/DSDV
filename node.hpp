@@ -24,7 +24,7 @@ typedef struct entry
 	time_t time;
 
 	void print(){
-		std::cout << "  \t" << destination << "  \t  " << nextHop << "  \t\t  " << numHops << "  \t\t  " << numSeq  << "\n";
+		std::cout << "  \t" << destination << "  \t  " << nextHop << "  \t\t  " << numHops <<"\n";
 	}
 } Entry;
 
@@ -163,7 +163,7 @@ public:
 
 	void printNeighbours(){
 		std::cout << "Table of " << ID << "\n";
-		std::cout << "Destination  \t  NextHop  \t  NumHops  \t  NumSeq  \n";
+		std::cout << "Destination  \t  NextHop  \t  NumHops   \n";
 		for(auto rt : routingTable){
 			rt.print();
 		}
