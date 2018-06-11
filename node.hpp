@@ -55,7 +55,7 @@ typedef struct message
 		auto timeinfo = localtime (&time);
   		strftime (buffer,80,"%x-%X - ",timeinfo);
 		std::cout 	<< buffer << "Source: " << src_ID << "  Destination: " << dst_ID 
-					<< "  Mesasge: " << msg << "  Seq Number: " << numSeq << "\n";
+					<< "  Message: " << msg << "  Seq Number: " << numSeq << "\n";
 	}
 } Msg;
 
