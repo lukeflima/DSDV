@@ -2,7 +2,7 @@ EXECUTABLE = out
 
 CXX = g++
 
-CXXFLAGS = -std=c++11  
+CXXFLAGS = -std=c++14  
 
 SOURCES = $(wildcard *.cpp)
 
@@ -27,4 +27,4 @@ clear: clean
 
 execute: out
 
-	./out <entradas.txt> saidas.txt
+	./out < input.txt 

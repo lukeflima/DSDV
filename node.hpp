@@ -50,7 +50,7 @@ typedef struct message
 		numSeq(_numSeq)
 		{}
 
-	std::string print(){
+	void print(){
 		char buffer [80];
 		auto timeinfo = localtime (&time);
   		strftime (buffer,80,"%x-%X - ",timeinfo);
@@ -175,7 +175,7 @@ public:
 		for(auto n: nodes){
 			//std::cout << "Loops nodes" << "\n";
 			if(n.ID != ID){
-				if(isInRange(n)){
+				if(isInRange(n) && n.isInRange(*this)){
 					routingTable.push_back({n.ID,n.ID,1,0,TIME});
 				}
 			}
