@@ -1,6 +1,6 @@
 
 # DSDV   
-
+An Destination-Sequenced Distance Vector routing (DSDV) simulation.
 ## Execution  
 To make.  
 
