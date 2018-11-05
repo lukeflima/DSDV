@@ -18,7 +18,7 @@ Next n line should contain 3 atributes, the position of each node (x and y) foll
 
 After this, one line containing the number of messages to be sent (m).  
 Next m lines containing the source node and destination node ([1-n] folowing the order of the file) and the mensage do be sent.  
-### Exemplo:  
+### Exemple:  
 ```
 8
 2 -8 6
